@@ -1,4 +1,6 @@
 const express= require("express");
+const { bookRouter } = require("./controllers/book.route");
+const { connection } = require("./config/db");
 
 
 const app=express();
@@ -10,11 +12,14 @@ app.get("/", (req,res)=>{
 })
 
 
+app.use("/books",bookRouter)
+
 const port= 8000;
 
 app.listen(port, async()=>{
 
     try{
+        await connection;
         console.log(`running on port ${port}`);
     }
     catch(err){
